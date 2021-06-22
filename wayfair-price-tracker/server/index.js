@@ -6,7 +6,9 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // Endpoints
-app.get("/scraping", handleScraping);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post("/scraping", handleScraping);
 // .get("/dailyscraping", handleDailyScraping)
 // .get("/sendemails", sendEmailNotification)
 // .post("/notifyuser", notifyUser)

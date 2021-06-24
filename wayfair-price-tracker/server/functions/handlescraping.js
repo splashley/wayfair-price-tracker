@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const knex = require("../data/knex");
+// const knex = require("../data/knex");
 
 async function handleScraping(request, response) {
   // Assign the url that frontend is sending to backend to a variable
@@ -14,21 +14,28 @@ async function handleScraping(request, response) {
   const productNameSelector = "#bd div.pl-Wrapper h1";
   const priceSelector = "span.pl-Price-V2";
   const imageSelector = "#bd div.pl-Wrapper img";
+  const skuSelector = "#bd span.Breadcrumbs-item";
   await page.setUserAgent(
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
   );
   await page.goto(inputURL);
 
-  await Promise.all(
-    [
-      await page.mainFrame().waitForSelector(productNameSelector),
-      await page.mainFrame().waitForSelector(priceSelector),
-      await page.mainFrame().waitForSelector(imageSelector),
-    ],
-    console.log("wow we're here")
-  ).catch(function (error) {
+  await Promise.all([
+    await page.mainFrame().waitForSelector(productNameSelector),
+    await page.mainFrame().waitForSelector(priceSelector),
+    await page.mainFrame().waitForSelector(imageSelector),
+    await page.mainFrame().waitForSelector(skuSelector),
+  ]).catch(function (error) {
     console.log(error);
   });
+
+  let skuNumber = await page.$eval(skuSelector, (element) => {
+    return element.innerText;
+  });
+
+  console.log(skuNumber);
+
+  await browser.close();
 }
 
 module.exports = handleScraping;

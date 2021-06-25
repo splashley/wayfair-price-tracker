@@ -20,6 +20,7 @@ export default function Home() {
           placeholder="Enter URL here"
           name="inputURL"
           onChange={handleChange}
+          pattern="https?://.+"
         ></input>
         <button type="submit">Click me</button>
       </form>

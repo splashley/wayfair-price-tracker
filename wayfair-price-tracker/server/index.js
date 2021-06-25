@@ -1,5 +1,6 @@
 const express = require("express");
-const handleScraping = require("./functions/handlescraping");
+let handleScraping = require("./functions/handlescraping");
+let compareProductSku = require("./functions/compareproductsku");
 
 const PORT = process.env.PORT || 3001;
 
@@ -11,7 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Hello, can you see this message?" });
 });
-app.post("/scraping", handleScraping);
+app.post("/scraping", async function (req, res) {
+  await handleScraping(req, res).then((data) => {
+    console.log("here is the res" + JSON.stringify(data));
+    compareProductSku(data);
+  });
+
+  console.log("yay!");
+});
 // .get("/dailyscraping", handleDailyScraping)
 // .get("/sendemails", sendEmailNotification)
 // .post("/notifyuser", notifyUser)

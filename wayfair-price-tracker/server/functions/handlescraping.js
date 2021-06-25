@@ -1,9 +1,8 @@
 const puppeteer = require("puppeteer");
-// const knex = require("../data/knex");
 
-async function handleScraping(request, response) {
+async function handleScraping(req, res) {
   // Assign the url that frontend is sending to backend to a variable
-  const incomingInputUrl = request.body.inputURL;
+  const incomingInputUrl = req.body.inputURL;
   const inputURL = String(incomingInputUrl);
   // We need to pass the URL to Puppeteer so it can begin scrapping off that page
   const browser = await puppeteer.launch({
@@ -12,7 +11,7 @@ async function handleScraping(request, response) {
   });
   const page = await browser.newPage();
   const productNameSelector = "#bd div.pl-Wrapper h1";
-  const priceSelector = "span.pl-Price-V2";
+  const priceSelector = "div.BasePriceBlock";
   const imageSelector = "#bd div.pl-Wrapper img";
   const skuSelector = "#bd span.Breadcrumbs-item";
   await page.setUserAgent(
@@ -29,13 +28,29 @@ async function handleScraping(request, response) {
     console.log(error);
   });
 
-  let skuNumber = await page.$eval(skuSelector, (element) => {
+  let productName = await page.$eval(productNameSelector, (element) => {
     return element.innerText;
   });
 
-  console.log(skuNumber);
+  let productPrice = await page.$eval(priceSelector, (element) => {
+    return element.innerHTML;
+  });
 
+  let productImage = await page.$eval(imageSelector, (element) => {
+    return element.getAttribute("src");
+  });
+
+  let productSkuNumber = await page.$eval(skuSelector, (element) => {
+    return element.innerText;
+  });
+  // console.log(productName, productPrice, productImage, productSkuNumber);
   await browser.close();
+  return {
+    productName: productName,
+    productPrice: productPrice,
+    productImage: productImage,
+    productSkuNumber: productSkuNumber,
+  };
 }
 
 module.exports = handleScraping;

@@ -5,7 +5,7 @@ exports.up = function (knex) {
       table.string("productName");
       table.string("productSKU");
       table.string("productURL");
-      table.timestamp("createdAt");
+      table.timestamp("createdAt").defaultTo(knex.fn.now());
     })
     .createTable("productPriceData", (table) => {
       table.increments(); // Creates an id

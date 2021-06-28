@@ -1,32 +1,36 @@
-import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 
-export default function Home() {
-  const [inputURL, setInputUrl] = useState("");
+import Header from "./components/header";
+import Home from "./components/Home";
+import ProductDetails from "./components/productdetails";
+import Error404 from "./components/Error404.js";
+import Footer from "./components/footer";
 
-  const handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    setInputUrl(value);
-    console.log(inputURL);
-  };
+const Wrapper = styled.div`
+  margin: 0;
+  padding: 0;
+`;
 
+export default function Index() {
   return (
-    <div>
-      <h1>Hello!</h1>
-      <form action="http://localhost:3001/scraping" method="post">
-        <input
-          type="text"
-          placeholder="Enter URL here"
-          name="inputURL"
-          onChange={handleChange}
-          pattern="https?://www.wayfair.com.+"
-        ></input>
-        <button type="submit">Click me</button>
-      </form>
-      <footer>
-        <h3>This is the footer</h3>
-      </footer>
-    </div>
+    <BrowserRouter>
+      <Wrapper>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/productdetails">
+            <ProductDetails />
+          </Route>
+          <Route component={Error404}>
+            <Error404 />
+          </Route>
+        </Switch>
+        <Footer />
+      </Wrapper>
+    </BrowserRouter>
   );
 }

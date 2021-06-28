@@ -3,18 +3,13 @@ const db = require("../models/dbhelpers");
 function compareProductSku(data) {
   // Take productSKU from (data), see if it exists in productData under productSKU column
   let productSku = JSON.stringify(data.productSkuNumber);
-
   db.select("*")
     .where("productSKU", productSku)
     .from("productData")
     .first()
     .then((rows) => {
-      console.log(rows);
-
       // Here we are checking to see if any rows are returned or not for productSku
       if (rows === undefined) {
-        console.log("here we aRE");
-        console.log(data.productPrice + "hello!!");
         // Add productName, productURL, productPrice in productData db
         // Also add productPrice to productPriceData
         db("productData")
@@ -25,11 +20,8 @@ function compareProductSku(data) {
               productSKU: productSku,
             },
           ])
-
           // Insert productPrice and ID from productData into the productPriceData
           .then(function (resp) {
-            console.log("here we aRE 2");
-            console.log(data.productPrice + "hello!!");
             db("productPriceData")
               .insert([
                 {
@@ -41,8 +33,6 @@ function compareProductSku(data) {
           })
           .catch((err) => console.error(err));
       } else {
-        console.log("here we aRE 3");
-        console.log(rows.id + "hello!!");
         // AddproductPrice to productPriceData
         db("productPriceData")
           .insert([

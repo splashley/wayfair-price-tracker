@@ -11,7 +11,7 @@ async function handleScraping(req, res) {
   });
   const page = await browser.newPage();
   const productNameSelector = "#bd div.pl-Wrapper h1";
-  const priceSelector = "div.SFPrice";
+  const priceSelector = "span.pl-Price-V2";
   const imageSelector = "#bd div.pl-Wrapper img";
   const skuSelector = "#bd span.Breadcrumbs-item";
   await page.setUserAgent(
@@ -40,9 +40,13 @@ async function handleScraping(req, res) {
     return element.getAttribute("src");
   });
 
-  let productSkuNumber = await page.$eval(skuSelector, (element) => {
+  let originalProductSkuNumber = await page.$eval(skuSelector, (element) => {
     return element.innerText;
   });
+
+  let productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
+
+  console.log(productSkuNumber);
 
   await browser.close();
   return {

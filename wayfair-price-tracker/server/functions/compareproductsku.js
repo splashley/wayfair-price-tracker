@@ -7,8 +7,14 @@ function compareProductSku(data) {
   db.select("*")
     .where("productSKU", productSku)
     .from("productData")
+    .first()
     .then((rows) => {
-      if (rows.length === 0) {
+      console.log(rows);
+
+      // Here we are checking to see if any rows are returned or not for productSku
+      if (rows === undefined) {
+        console.log("here we aRE");
+        console.log(data.productPrice + "hello!!");
         // Add productName, productURL, productPrice in productData db
         // Also add productPrice to productPriceData
         db("productData")
@@ -19,24 +25,39 @@ function compareProductSku(data) {
               productSKU: productSku,
             },
           ])
-          .catch((error) => console.error(error));
-        console.log("maybe this worked?");
+
+          // Insert productPrice and ID from productData into the productPriceData
+          .then(function (resp) {
+            console.log("here we aRE 2");
+            console.log(data.productPrice + "hello!!");
+            db("productPriceData")
+              .insert([
+                {
+                  productId: db.select(db.raw("last_insert_rowid() as id")),
+                  productPrice: data.productPrice,
+                },
+              ])
+              .catch((err) => console.error(err));
+          })
+          .catch((err) => console.error(err));
       } else {
+        console.log("here we aRE 3");
+        console.log(rows.id + "hello!!");
         // AddproductPrice to productPriceData
-        console.log("did not work");
+        db("productPriceData")
+          .insert([
+            {
+              productId: rows.id,
+              productPrice: data.productPrice,
+            },
+          ])
+          .then(function (res) {})
+          .catch((err) => console.error(err));
       }
     })
     .catch((err) => {
       console.error(err);
-    })
-    .finally(() => {
-      db.destroy();
     });
-
-  console.log("the end");
-  // If it exists
-
-  // If it doesn't exist,
 }
 
 module.exports = compareProductSku;

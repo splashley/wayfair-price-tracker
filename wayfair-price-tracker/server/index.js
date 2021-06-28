@@ -14,8 +14,14 @@ app.get("/", (req, res) => {
 });
 app.post("/scraping", async function (req, res) {
   await handleScraping(req, res).then((data) => {
-    console.log("here is the res" + JSON.stringify(data));
     compareProductSku(data);
+    res.status(200).json({
+      productName: productName,
+      productPrice: productPrice,
+      productImage: productImage,
+      productSkuNumber: productSkuNumber,
+      productURL: incomingInputUrl,
+    });
   });
 
   console.log("yay!");

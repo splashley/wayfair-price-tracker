@@ -16,8 +16,8 @@ exports.up = function (knex) {
         .inTable("productData")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      table.integer("productPrice", 10000);
-      table.timestamp("createdAt");
+      table.integer("productPrice");
+      table.timestamp("createdAt").defaultTo(knex.fn.now());
     })
     .createTable("storedDesiredPrices", (table) => {
       table.increments();
@@ -30,7 +30,7 @@ exports.up = function (knex) {
         .inTable("productData")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      table.timestamp("createdAt");
+      table.timestamp("createdAt").defaultTo(knex.fn.now());
     });
 };
 

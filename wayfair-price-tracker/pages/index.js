@@ -3,9 +3,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "./components/header";
-import Home from "./components/Home";
-import ProductDetails from "./components/productdetails";
-import Error404 from "./components/Error404.js";
+import Home from "./home";
+import ProductDetails from "./productdetails";
+import Error404 from "./error404.js";
 import Footer from "./components/footer";
 
 const Wrapper = styled.div`

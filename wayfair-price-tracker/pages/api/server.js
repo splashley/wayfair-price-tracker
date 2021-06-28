@@ -9,10 +9,10 @@ const app = express();
 // Endpoints
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.get("/", (req, res) => {
-//   res.json({ message: "Hello, can you see this message?" });
-// });
-app.post("/scraping", async function (req, res) {
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../"));
+});
+app.post("/api/scraping", async function (req, res) {
   await handleScraping(req, res).then((data) => {
     compareProductSku(data);
     res.status(200).json({
@@ -26,7 +26,6 @@ app.post("/scraping", async function (req, res) {
 });
 
 // .post("/storeddesiredprice", storeDesiredPrice);
-
 // .get("/dailyscraping", handleDailyScraping)
 // .get("/sendemails", sendEmailNotification)
 // .post("/notifyuser", notifyUser)

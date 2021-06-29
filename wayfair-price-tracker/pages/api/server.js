@@ -9,18 +9,16 @@ const app = express();
 // Endpoints
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../"));
-});
 app.post("/api/scraping", async function (req, res) {
   await handleScraping(req, res).then((data) => {
     compareProductSku(data);
+    console.log(data.productURL);
     res.status(200).json({
-      productName: productName,
-      productPrice: productPrice,
-      productImage: productImage,
-      productSkuNumber: productSkuNumber,
-      productURL: incomingInputUrl,
+      productName: data.productName,
+      productPrice: data.productPrice,
+      productImage: data.productImage,
+      productSkuNumber: data.productSkuNumber,
+      productURL: data.productURL,
     });
   });
 });

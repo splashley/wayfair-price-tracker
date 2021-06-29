@@ -13,7 +13,7 @@ const SearchBar = () => {
 
   return (
     <Wrapper>
-      <form action="http://localhost:3001/scraping" method="post">
+      <form action="http://localhost:3001/api/scraping" method="post">
         <input
           type="text"
           placeholder="Enter URL here"
@@ -28,7 +28,7 @@ const SearchBar = () => {
 };
 
 const Wrapper = styled.div`
-  padding: 10% 15%;
+  padding: 10px;
 `;
 
 export default SearchBar;

@@ -13,7 +13,7 @@ const Home = () => {
 };
 
 const Wrapper = styled.div`
-  padding: 10% 15%;
+  padding: 10px;
 `;
 
 export default Home;

@@ -1,7 +1,11 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function App({ Component, pageProps }) {
+  return (
+    <div>
+      {typeof window === "undefined" ? null : <Component {...pageProps} />}
+    </div>
+  );
 }
 
-export default MyApp
+export default App;

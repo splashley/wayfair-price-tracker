@@ -46,13 +46,15 @@ async function handleScraping(req, res) {
 
   let productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
 
+  console.log(inputURL);
+
   await browser.close();
   return {
     productName: productName,
     productPrice: productPrice,
     productImage: productImage,
     productSkuNumber: productSkuNumber,
-    productURL: incomingInputUrl,
+    productURL: inputURL,
   };
 }
 

@@ -8,12 +8,11 @@ const SearchBar = () => {
     const target = event.target;
     const value = target.value;
     setInputUrl(value);
-    console.log(inputURL);
   };
 
   return (
     <Wrapper>
-      <form action="http://localhost:3001/api/scraping" method="post">
+      <form action="http://localhost:3000/productdetails" method="post">
         <input
           type="text"
           placeholder="Enter URL here"
@@ -21,7 +20,9 @@ const SearchBar = () => {
           onChange={handleChange}
           pattern="https?://www.wayfair.com.+"
         ></input>
-        <button type="submit">Click me</button>
+        <button type="submit" onClick={props.addTrip}>
+          Click me
+        </button>
       </form>
     </Wrapper>
   );

@@ -47,16 +47,8 @@ const SpinnerDiv = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding-top: 120px;
-  padding-bottom: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  @media (max-width: 768px) {
-    padding: 100px 0;
-  }
+  margin: 0;
+  padding: 0;
 `;
 
 export default Spinner;

@@ -1,6 +1,7 @@
 const express = require("express");
 let handleScraping = require("./functions/handlescraping");
 let compareProductSku = require("./functions/compareproductsku");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
 
@@ -9,7 +10,8 @@ const app = express();
 // Endpoints
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.post("/api/scraping", async function (req, res) {
+app.use(cors());
+app.get("/api/scraping/", async function (req, res) {
   await handleScraping(req, res).then((data) => {
     compareProductSku(data);
     console.log(data.productURL);

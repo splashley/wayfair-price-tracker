@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   padding: 0;
 `;
 
-export default function Index() {
+export default function App() {
   return (
     <BrowserRouter>
       <Wrapper>

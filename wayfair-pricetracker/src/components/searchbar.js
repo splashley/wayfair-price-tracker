@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   const [inputURL, setInputUrl] = useState("");
 
   const handleChange = (event) => {
@@ -12,17 +12,16 @@ const SearchBar = () => {
 
   return (
     <Wrapper>
-      <form action="http://localhost:3000/productdetails" method="post">
+      <form action="http://localhost:3001/api/scraping/" method="post">
         <input
           type="text"
           placeholder="Enter URL here"
           name="inputURL"
           onChange={handleChange}
           pattern="https?://www.wayfair.com.+"
+          onClick={props.productDetails}
         ></input>
-        <button type="submit" onClick={props.addTrip}>
-          Click me
-        </button>
+        <button type="submit">Click me</button>
       </form>
     </Wrapper>
   );

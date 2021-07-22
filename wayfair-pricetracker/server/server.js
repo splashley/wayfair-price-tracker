@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.get("/api/scraping/", async function (req, res) {
+app.post("/api/scraping/", async function (req, res) {
   await handleScraping(req, res).then((data) => {
     compareProductSku(data);
     console.log(data.productURL);

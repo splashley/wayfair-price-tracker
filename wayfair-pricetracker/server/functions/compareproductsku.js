@@ -1,15 +1,22 @@
+const { default: knex } = require("knex");
 const db = require("../models/dbhelpers");
 
-function compareProductSku(data) {
+async function compareProductSku(data) {
   // Take productSKU from (data), see if it exists in productData under productSKU column
   let productSku = JSON.stringify(data.productSkuNumber);
-  db.select("*")
+  console.log("productSKU", productSku)
+  console.log(data)
+  const insertData = await db
+    .select("*")
     .where("productSKU", productSku)
-    .from("productData")
-    .first()
+    .from("productData");
+  console.log("insertData", insertData);
+  const obj = {...insertData[0]};
+  console.log(obj);
+  const compareData = await db("productData")
     .then((rows) => {
       // Here we are checking to see if any rows are returned or not for productSku
-      if (rows === undefined) {
+      if (!insertData.length > 0) {
         // Add productName, productURL, productPrice in productData db
         // Also add productPrice to productPriceData
         db("productData")
@@ -37,11 +44,13 @@ function compareProductSku(data) {
         db("productPriceData")
           .insert([
             {
-              productId: rows.id,
+              productId: obj.id,
               productPrice: data.productPrice,
             },
           ])
-          .then(function (res) {})
+          .then(function (res) {
+            return;
+          })
           .catch((err) => console.error(err));
       }
     })

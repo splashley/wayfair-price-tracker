@@ -6,7 +6,7 @@ async function handleScraping(req, res) {
   const inputURL = String(incomingInputUrl);
   // We need to pass the URL to Puppeteer so it can begin scrapping off that page
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     defaultViewport: null,
   });
   const page = await browser.newPage();

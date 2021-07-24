@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -59,10 +59,30 @@ const Wrapper = styled.div`
 `;
 
 const PriceNotifyForm = (props) => {
+  const [data, setData] = useState(null);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(event.currentTarget.elements.email.value);
+    console.log(event.currentTarget.elements.desiredPrice.value);
+    console.log(props.data);
+    axios
+      .post("http://localhost:3001/api/storedesiredprice", {
+        email: event.currentTarget.elements.email.value,
+        desiredPrice: event.currentTarget.elements.desiredPrice.value,
+        productId: props.data
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
     return (
         <Wrapper>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <FormDiv>
               <FormTitle>Track this Product</FormTitle>
               <P>

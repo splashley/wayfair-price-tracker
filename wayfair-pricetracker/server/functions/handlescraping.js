@@ -11,7 +11,7 @@ async function handleScraping(req, res) {
   });
   const page = await browser.newPage();
   const productNameSelector = "#bd div.pl-Wrapper h1";
-  const priceSelector = "span.pl-Price-V2";
+  const priceSelector = "span.notranslate";
   const imageSelector = "#bd div.pl-Wrapper img";
   const skuSelector = "#bd span.Breadcrumbs-item";
   await page.setUserAgent(

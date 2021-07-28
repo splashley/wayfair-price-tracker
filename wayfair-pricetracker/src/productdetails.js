@@ -5,7 +5,6 @@ import Spinner from "./components/spinner";
 import PriceNotifyForm from "./components/desiredprice";
 
 const ProductDetails = (props) => {
-  console.log(props);
   return props.loading ? (
     <Spinner />
   ) : (

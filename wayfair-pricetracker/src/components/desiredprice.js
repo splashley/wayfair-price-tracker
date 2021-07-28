@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -60,61 +60,80 @@ const Wrapper = styled.div`
 
 const PriceNotifyForm = (props) => {
   const [data, setData] = useState(null);
+  const [currentDesiredPrice, setCurrentDesiredPrice] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event.currentTarget.elements.email.value);
-    console.log(event.currentTarget.elements.desiredPrice.value);
-    console.log(props.data);
+    setCurrentDesiredPrice(event.currentTarget.elements.desiredPrice.value);
     axios
       .post("http://localhost:3001/api/storedesiredprice", {
         email: event.currentTarget.elements.email.value,
         desiredPrice: event.currentTarget.elements.desiredPrice.value,
-        productId: props.data
+        productId: props.data,
+        priceReplacementFlag: false
       })
       .then((response) => {
+        const currentPrice = response.data;
+        console.log(currentPrice);
+        let txt;
         setData(response.data);
+        
+        if (
+          window.confirm(
+            `You already have a desired price of $${currentPrice} saved, do you wish to replace it with $${currentDesiredPrice}?`
+          )
+        ) {
+          txt = "Sure! Replace my price";
+          axios
+          .post("http://localhost:3001/api/storedesiredprice", {
+            email: event.currentTarget.elements.email.value,
+            desiredPrice: event.currentTarget.elements.desiredPrice.value,
+            productId: props.data,
+            priceReplacementFlag: true
+          })
+        } else {
+          txt = "No, don't replace my price!";
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-    return (
-        <Wrapper>
-          <Form onSubmit={handleSubmit}>
-            <FormDiv>
-              <FormTitle>Track this Product</FormTitle>
-              <P>
-                We'll notify you via e-mail when this product hits your desired
-                price. We check the product's price on a daily basis.
-              </P>
-              <Label htmlFor="email">Your E-mail Address</Label>
-              <Input
-                type="email"
-                placeholder="Enter your e-mail address"
-                autoComplete="email"
-                id="email"
-                name="email"
-                noValidate=""
-                required
-              ></Input>
-              <Label htmlFor="desiredPrice">Your Desired Price</Label>
-              <Input
-                type="number"
-                placeholder="Enter your desired price"
-                min="1"
-                max="99999"
-                id="desiredPrice"
-                name="desiredPrice"
-                required
-              ></Input>
-              <SubmitButton type="submit">Submit</SubmitButton>
-            </FormDiv>
-          </Form>
-        </Wrapper>
-      );
-    }
-
+  return (
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <FormDiv>
+          <FormTitle>Track this Product</FormTitle>
+          <P>
+            We'll notify you via e-mail when this product hits your desired
+            price. We check the product's price on a daily basis.
+          </P>
+          <Label htmlFor="email">Your E-mail Address</Label>
+          <Input
+            type="email"
+            placeholder="Enter your e-mail address"
+            autoComplete="email"
+            id="email"
+            name="email"
+            noValidate=""
+            required
+          ></Input>
+          <Label htmlFor="desiredPrice">Your Desired Price</Label>
+          <Input
+            type="number"
+            placeholder="Enter your desired price"
+            min="1"
+            max="99999"
+            id="desiredPrice"
+            name="desiredPrice"
+            required
+          ></Input>
+          <SubmitButton type="submit">Submit</SubmitButton>
+        </FormDiv>
+      </Form>
+    </Wrapper>
+  );
+};
 
 export default PriceNotifyForm;

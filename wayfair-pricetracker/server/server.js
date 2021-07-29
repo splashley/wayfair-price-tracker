@@ -1,17 +1,16 @@
 const express = require("express");
-let handleScraping = require("./functions/handlescraping");
-let compareProductSku = require("./functions/compareproductsku");
-let storeDesiredPrice = require("./functions/storedesiredprice");
-let handleDailyScraping = require("./functions/handledailyscraping");
-let getProductIdsForScraping = require("./functions/getproductidsforscraping");
-let updateDailyPrices = require("./functions/updatedailyprices");
 const cors = require("cors");
+const handleScraping = require("./functions/handlescraping");
+const compareProductSku = require("./functions/compareproductsku");
+const storeDesiredPrice = require("./functions/storedesiredprice");
+const handleDailyScraping = require("./functions/handledailyscraping");
+const getProductIdsForScraping = require("./functions/getproductidsforscraping");
+const updateDailyPrices = require("./functions/updatedailyprices");
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// Endpoints
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -30,7 +29,6 @@ app.post("/api/scraping/", async function (req, res) {
 
 app.post("/api/storedesiredprice", async function (req, res) {
   await storeDesiredPrice(req, res).then((data) => {
-    console.log("data on serverjs", data);
     res.status(200).json(data);
   });
 });
@@ -38,7 +36,6 @@ app.post("/api/storedesiredprice", async function (req, res) {
 app.get("/dailyscraping", async function (req, res) {
   const startDailyScraping = await getProductIdsForScraping(req, res).then(
     async (data) => { 
-      console.log("we're right at the for loop");
       function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
       for (let item of data) {
         await handleDailyScraping(item).then(res => { updateDailyPrices(res)})
@@ -46,13 +43,8 @@ app.get("/dailyscraping", async function (req, res) {
       }
     }
   );
-  // const result = await handleDailyScraping()
-  //   .then((data) => {
-
-  //     res.status(200).json(data);
-  // }
-  // )
 });
+
 // .get("/sendemails", sendEmailNotification)
 // .post("/notifyuser", notifyUser)
 

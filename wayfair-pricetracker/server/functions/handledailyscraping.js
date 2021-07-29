@@ -1,8 +1,6 @@
 const puppeteer = require("puppeteer");
 
 async function handleDailyScraping(data) {
-    console.log("we hit handledailyscraping!")
-    console.log("data", data.id);
     const incomingInputUrl = data.productURL;
     const inputURL = String(incomingInputUrl);
     const browser = await puppeteer.launch({

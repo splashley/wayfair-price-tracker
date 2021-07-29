@@ -2,7 +2,6 @@ const { default: knex } = require("knex");
 const db = require("../models/dbhelpers");
 
 async function storeDesiredPrice(req, res) {
-  // Need to receive email, desired price, and productid
   const incomingEmail = req.body.email;
   const incomingDesiredPrice = req.body.desiredPrice;
   const incomingProductId = req.body.productId;

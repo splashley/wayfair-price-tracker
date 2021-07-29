@@ -8,18 +8,16 @@ async function storeDesiredPrice(req, res) {
   const incomingProductId = req.body.productId;
   const incomingDesiredPriceReplacement = req.body.priceReplacementFlag;
 
-  console.log(incomingProductId, incomingEmail, incomingDesiredPrice);
-
-const replaceDesiredPrice = () => {
+  const replaceDesiredPrice = () => {
     return db("storedDesiredPrices")
-          .where({email: incomingEmail, productID: incomingProductId})
-          .update({
-            email: incomingEmail,
-            desiredPrice: incomingDesiredPrice,
-            productID: incomingProductId,
-          })
-          .then((otherRes) => otherRes);
-};
+      .where({ email: incomingEmail, productID: incomingProductId })
+      .update({
+        email: incomingEmail,
+        desiredPrice: incomingDesiredPrice,
+        productID: incomingProductId,
+      })
+      .then((otherRes) => otherRes);
+  };
 
   // Check to see if there is an entry in the db that matches the email and productId
   const checkEntryExists = await db
@@ -37,22 +35,26 @@ const replaceDesiredPrice = () => {
               productID: incomingProductId,
             },
           ])
-          .then((otherRes) => otherRes);
+          .then((otherRes) => {
+            if (incomingDesiredPriceReplacement === true) {
+             } else { otherRes
+            }
+          });
       } else {
         // Need to ask user if they want to replace their price or not
-          let currentPrice = rows[0].desiredPrice;
-          if (incomingDesiredPriceReplacement === true) {
-            return replaceDesiredPrice();
-          } else {
-            return currentPrice;
-          }
-          // If not, leave entry as is
-          // If so, update the entry with new price
+        let currentPrice = rows[0].desiredPrice;
+        if (incomingDesiredPriceReplacement === true) {
+          return replaceDesiredPrice();
+        } else {
+          return currentPrice;
+        }
+        // If not, leave entry as is
+        // If so, update the entry with new price
       }
     })
     .catch((err) => console.err(err));
 
-    return checkEntryExists
+  return checkEntryExists;
 }
 
 module.exports = storeDesiredPrice;

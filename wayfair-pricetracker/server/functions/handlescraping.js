@@ -6,12 +6,12 @@ async function handleScraping(req, res) {
   const inputURL = String(incomingInputUrl);
   // We need to pass the URL to Puppeteer so it can begin scrapping off that page
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null,
   });
   const page = await browser.newPage();
   const productNameSelector = "#bd div.pl-Wrapper h1";
-  const priceSelector = "span.notranslate";
+  const priceSelector = "#bd span.pl-Price-V2";
   const imageSelector = "#bd div.pl-Wrapper img";
   const skuSelector = "#bd span.Breadcrumbs-item";
   await page.setUserAgent(
@@ -45,8 +45,6 @@ async function handleScraping(req, res) {
   });
 
   let productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
-
-  console.log(inputURL);
 
   await browser.close();
   return {

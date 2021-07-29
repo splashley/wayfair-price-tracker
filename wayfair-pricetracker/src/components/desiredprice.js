@@ -59,46 +59,60 @@ const Wrapper = styled.div`
 `;
 
 const PriceNotifyForm = (props) => {
-  const [data, setData] = useState(null);
-  const [currentDesiredPrice, setCurrentDesiredPrice] = useState(null);
+  const [currentDesiredPrice, setCurrentDesiredPrice] = useState(0);
+  const [email, setEmail] = useState(null);
+
+  let txt;
 
   function handleSubmit(event) {
     event.preventDefault();
-    setCurrentDesiredPrice(event.currentTarget.elements.desiredPrice.value);
+    console.log("new price", event.currentTarget.elements.desiredPrice.value);
+    
     axios
       .post("http://localhost:3001/api/storedesiredprice", {
         email: event.currentTarget.elements.email.value,
         desiredPrice: event.currentTarget.elements.desiredPrice.value,
         productId: props.data,
-        priceReplacementFlag: false
+        priceReplacementFlag: false,
       })
       .then((response) => {
+        console.log("response.data", response.data);
         const currentPrice = response.data;
-        console.log(currentPrice);
-        let txt;
-        setData(response.data);
-        
-        if (
-          window.confirm(
-            `You already have a desired price of $${currentPrice} saved, do you wish to replace it with $${currentDesiredPrice}?`
-          )
-        ) {
-          txt = "Sure! Replace my price";
-          axios
-          .post("http://localhost:3001/api/storedesiredprice", {
-            email: event.currentTarget.elements.email.value,
-            desiredPrice: event.currentTarget.elements.desiredPrice.value,
-            productId: props.data,
-            priceReplacementFlag: true
-          })
+        if (response.data) {
+          console.log("we hit the if")
+          if (
+            window.confirm(
+              `You already have a desired price of $${currentPrice} saved, do you wish to replace it with $${currentDesiredPrice}?`
+            )
+          ) {
+            txt = "Sure! Replace my price";
+            axios.post("http://localhost:3001/api/storedesiredprice", {
+              email: email,
+              desiredPrice: currentDesiredPrice,
+              productId: props.data,
+              priceReplacementFlag: true,
+            });
+          } else {
+            txt = "No, don't replace my price!";
+          }
         } else {
-          txt = "No, don't replace my price!";
+          console.log("else!!");
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+
+  const handlePriceChange = (event) => {
+    event.preventDefault(); // prevent the default action
+    setCurrentDesiredPrice(event.target.value); // set name to e.target.value (event)
+  };
+
+  const handleEmailChange = (event) => {
+    event.preventDefault(); // prevent the default action
+    setEmail(event.target.value); // set name to e.target.value (event)
+  };
 
   return (
     <Wrapper>
@@ -117,6 +131,7 @@ const PriceNotifyForm = (props) => {
             id="email"
             name="email"
             noValidate=""
+            onChange={handleEmailChange}
             required
           ></Input>
           <Label htmlFor="desiredPrice">Your Desired Price</Label>
@@ -127,6 +142,7 @@ const PriceNotifyForm = (props) => {
             max="99999"
             id="desiredPrice"
             name="desiredPrice"
+            onChange={handlePriceChange}
             required
           ></Input>
           <SubmitButton type="submit">Submit</SubmitButton>

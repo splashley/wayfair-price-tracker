@@ -32,7 +32,7 @@ async function handleScraping(req, res) {
     return element.innerText;
   });
 
-  let productPrice = await page.$eval(priceSelector, (element) => {
+  let originalProductPrice = await page.$eval(priceSelector, (element) => {
     return element.innerHTML;
   });
 
@@ -45,6 +45,7 @@ async function handleScraping(req, res) {
   });
 
   let productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
+  let productPrice = originalProductPrice.replace("$", "");
 
   await browser.close();
   return {

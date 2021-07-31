@@ -4,18 +4,27 @@ const db = require("../models/dbhelpers");
 async function compareProductPrices(storedPrices) {
   return db
     .from("storedDesiredPrices")
-    .select("productID", "desiredPrice")
+    .select("productID", "desiredPrice", "id", "email")
     .then((desiredPrices) => {
       const productPrices = new Map();
       for (let item of storedPrices) {
-        productPrices.set(item.productID, item.productPrice);
+        productPrices.set(item.id, item);
       }
       const winningPrices = [];
       for (let item of desiredPrices) {
-        if (item.desiredPrice >= productPrices.get(item.productID)) {
-      winningPrices.push({id: item.productID, desiredPrice: item.desiredPrice, productPrice: productPrices.get(item.productID)})
+        const product = productPrices.get(item.productID)
+        if (product && item.desiredPrice >= product.productPrice) {
+          winningPrices.push({
+            productId: item.productID,
+            desiredPrice: item.desiredPrice,
+            productPrice: product.productPrice,
+            id: item.id,
+            email: item.email,
+            productURL: product.productURL,
+            productName: product.productName
+          });
         } else {
-            console.log("Boo the price is not right yet")
+          console.log("this is the else!!");
         }
       }
       return winningPrices;

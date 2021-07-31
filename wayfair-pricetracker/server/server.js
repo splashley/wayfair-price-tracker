@@ -8,6 +8,7 @@ const getProductIdsForScraping = require("./functions/getproductidsforscraping")
 const getPrices = require("./functions/getPrices");
 const updateDailyPrices = require("./functions/updatedailyprices");
 const compareProductPrices = require("./functions/compareproductprices");
+const sendEmails = require("./functions/sendemails")
 
 const PORT = process.env.PORT || 3001;
 
@@ -49,7 +50,8 @@ app.get("/dailyscraping", async function (req, res) {
 
 app.get("/sendemails", async function (req, res) {
   const getAllPrices = await getPrices(req, res).then(res => res);
-  const comparePrices = await compareProductPrices(getAllPrices).then(res => console.log("res", res));
+  const comparePrices = await compareProductPrices(getAllPrices).then(res => res);
+  const notifyUsers = await sendEmails(comparePrices).then(res => res);
 })
 
 app.listen(PORT, () => {

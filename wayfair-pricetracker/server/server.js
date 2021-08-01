@@ -1,5 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// Functions
 const handleScraping = require("./functions/handlescraping");
 const compareProductSku = require("./functions/compareproductsku");
 const storeDesiredPrice = require("./functions/storedesiredprice");
@@ -10,13 +14,11 @@ const updateDailyPrices = require("./functions/updatedailyprices");
 const compareProductPrices = require("./functions/compareproductprices");
 const sendEmails = require("./functions/sendemails")
 
-const PORT = process.env.PORT || 3001;
-
-const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+// Endpoints
 app.post("/api/scraping/", async function (req, res) {
   const handleScrapingProcess = await handleScraping(req, res);
   const result = await compareProductSku(handleScrapingProcess);
@@ -53,6 +55,8 @@ app.get("/sendemails", async function (req, res) {
   const comparePrices = await compareProductPrices(getAllPrices).then(res => res);
   const notifyUsers = await sendEmails(comparePrices).then(res => res);
 })
+
+//
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

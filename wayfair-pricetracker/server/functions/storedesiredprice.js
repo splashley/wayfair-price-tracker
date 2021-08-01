@@ -51,7 +51,7 @@ async function storeDesiredPrice(req, res) {
         // If so, update the entry with new price
       }
     })
-    .catch((err) => console.err(err));
+    .catch((err) => console.log(err));
 
   return checkEntryExists;
 }

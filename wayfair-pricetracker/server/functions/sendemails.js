@@ -16,7 +16,6 @@ async function sendEmails(data) {
 
   // send mail with defined transport object
   data.forEach(async (item) => {
-      console.log(item);
     let info = await transporter.sendMail({
         from: '"HHH 👻" <hunterhunterhuntersite@gmail.com>', // sender address
         to: item.email, // list of receivers

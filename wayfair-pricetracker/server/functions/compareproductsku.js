@@ -9,7 +9,6 @@ async function compareProductSku(data) {
     .where("productSKU", productSku)
     .from("productData");
   const obj = { ...insertData[0] };
-  console.log("obj", obj);
   const compareData = await db("productData")
     .then((rows) => {
       if (!insertData.length > 0) {
@@ -51,7 +50,7 @@ async function compareProductSku(data) {
       return res;
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     });
   return compareData;
 }

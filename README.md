@@ -1,5 +1,5 @@
 # Wayfair Price Tracker
-This project is a complete refactor of my final project from November 2020 at my Full-Stack Web Development bootcamp. This Wayfair price tracker allows you to look up products and save a desired price for the product. Once a desired price is saved for a product, a cronjob will review that product on a daily prices to see if your desired price has been met or exceeded. If met/exceeded, an e-mail notification is sent out via Nodemailer to communicate to the user that their price has been met or exceeded.
+This project is a complete refactor of my final project from November 2020 at my Full-Stack Web Development bootcamp. I thought it would be a good opportunity to review a past project to see how I could improve on the code by starting from scratch (and with a slightly different tech stack). This Wayfair price tracker allows you to look up products and save a desired price for the product. Once a desired price is saved for a product, a cronjob will review that product on a daily prices to see if your desired price has been met or exceeded. If met/exceeded, an e-mail notification is sent out via Nodemailer to communicate to the user that their price has been met or exceeded.
 
 ### Database Schemas
 ![Database Schemas](https://i.imgur.com/2RHJJqG.png)
@@ -19,4 +19,7 @@ This endpoint compares the prices from the storedDesiredPrices and priceData to 
 **Tech used:** React.js, Node.js, Express, Puppeteer, Knex.js (SQLite3), Axios, and Node Mailer
 
 ## Lessons Learned:
-- 
+- Used Knex.js (with SQLite3) for the first time to create schemas,
+- Because I used SQLite3, I had to relearn a bit of SQL.
+- Refactoring an old project was a good learning experience. Reviewing how I previously coded vs how I coded in the present with greater knowledge was an insightful experience. It showcases how much you've grown as a developer.
+- Developed a deeper understanding of The Map() object and incorporated it into my project.

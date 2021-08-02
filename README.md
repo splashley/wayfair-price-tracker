@@ -21,5 +21,6 @@ This endpoint compares the prices from the storedDesiredPrices and priceData to 
 ## Lessons Learned:
 - Used Knex.js (with SQLite3) for the first time to create schemas,
 - Because I used SQLite3, I had to relearn a bit of SQL.
+- Learned a bit about relational databases, specially about primary and foreign keys.
 - Refactoring an old project was a good learning experience. Reviewing how I previously coded vs how I coded in the present with greater knowledge was an insightful experience. It showcases how much you've grown as a developer.
 - Developed a deeper understanding of The Map() object and incorporated it into my project.

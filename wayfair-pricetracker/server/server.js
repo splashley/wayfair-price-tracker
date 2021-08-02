@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Endpoints
-app.post("/api/scraping/", async function (req, res) {
+app.post("/api/scraping", async function (req, res) {
   const handleScrapingProcess = await handleScraping(req, res);
   const result = await compareProductSku(handleScrapingProcess);
   res.status(200).json({
@@ -38,7 +38,7 @@ app.post("/api/storedesiredprice", async function (req, res) {
   });
 });
 
-app.get("/dailyscraping", async function (req, res) {
+app.get("/api/dailyscraping", async function (req, res) {
   const startDailyScraping = await getProductIdsForScraping(req, res).then(
     async (data) => { 
       function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -50,7 +50,7 @@ app.get("/dailyscraping", async function (req, res) {
   );
 });
 
-app.get("/sendemails", async function (req, res) {
+app.get("/api/sendemails", async function (req, res) {
   const getAllPrices = await getPrices(req, res).then(res => res);
   const comparePrices = await compareProductPrices(getAllPrices).then(res => res);
   const notifyUsers = await sendEmails(comparePrices).then(res => res);

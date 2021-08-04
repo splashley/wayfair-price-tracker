@@ -10,9 +10,11 @@ const P = styled.p`
 
 const SubmitButton = styled.button`
   background-color: #6eaa4a;
+  font-family: 'Noto Sans JP', sans-serif;
   color: white;
   border-radius: 2px;
   border: none;
+  padding: 5px;
   margin-top: 20px;
   @media (max-width: 950px) {
     margin-top: 10px;
@@ -41,7 +43,7 @@ const FormTitle = styled.h2`
 `;
 
 const Form = styled.form`
-  background-color: #fdb486;
+  background-color: #FEDECA;
   color: black;
   text-align: left;
   border-radius: 5px;
@@ -145,7 +147,7 @@ const PriceNotifyForm = (props) => {
             onChange={handlePriceChange}
             required
           ></Input>
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <SubmitButton type="submit">Save Your Price</SubmitButton>
         </FormDiv>
       </Form>
     </Wrapper>

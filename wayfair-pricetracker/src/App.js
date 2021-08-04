@@ -7,6 +7,7 @@ import Home from "./home";
 import ProductDetails from "./productdetails";
 import Error404 from "./error404.js";
 import Footer from "./components/footer";
+import "./App.css"
 
 const Wrapper = styled.div`
   margin: 0;

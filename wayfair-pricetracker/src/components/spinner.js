@@ -34,12 +34,13 @@ const SpinnerMessage = styled.p`
 `;
 
 const SpinnerMessageDiv = styled.div`
-  padding: 15px;
   text-align: center;
 `;
 
 const SpinnerDiv = styled.div`
   font-size: 5rem;
+  text-align: center;
+  margin: 0;
   animation: ${spin} 3s linear infinite;
   @media (max-width: 768px) {
     font-size: 3rem;
@@ -48,7 +49,7 @@ const SpinnerDiv = styled.div`
 
 const Wrapper = styled.div`
   margin: 0;
-  padding: 0;
+  padding: 0 20%;
 `;
 
 export default Spinner;

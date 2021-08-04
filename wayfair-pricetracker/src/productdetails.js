@@ -5,11 +5,11 @@ import Spinner from "./components/spinner";
 import PriceNotifyForm from "./components/desiredprice";
 
 const ProductDetails = (props) => {
+  console.log(props);
   return props.loading ? (
     <Spinner />
   ) : (
     <Wrapper>
-      <h2>ProductDetails</h2>
       <ProductName>{props?.data?.productName}</ProductName>
       <ProductPrice>{props?.data?.productPrice}</ProductPrice>
       <ProductImage src={props?.data?.productImage} />
@@ -19,19 +19,19 @@ const ProductDetails = (props) => {
 };
 
 const Wrapper = styled.div`
-  padding: 10px;
+  padding: 25px 0;
 `;
 
 const ProductName = styled.h2`
-font-size: 16px;
+font-size: 1.5rem;
 `
 
 const ProductPrice = styled.h2`
-font-size: 16px;
+font-size: 1.5rem;
 `
 
 const ProductImage  = styled.img`
-width: 100px;
+width: 250px;
 `
 
 export default ProductDetails;

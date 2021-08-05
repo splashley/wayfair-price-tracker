@@ -6,11 +6,14 @@ const P = styled.p`
   @media (max-width: 950px) {
     font-size: 1rem;
   }
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const SubmitButton = styled.button`
   background-color: #6eaa4a;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   color: white;
   border-radius: 2px;
   border: none;
@@ -26,12 +29,18 @@ const Label = styled.label`
   @media (max-width: 950px) {
     font-size: 1rem;
   }
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Input = styled.input`
   padding: 5px 0;
   @media (max-width: 950px) {
     font-size: 1rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
   }
 `;
 
@@ -43,7 +52,7 @@ const FormTitle = styled.h2`
 `;
 
 const Form = styled.form`
-  background-color: #FEDECA;
+  background-color: #fedeca;
   color: black;
   text-align: left;
   border-radius: 5px;
@@ -56,8 +65,12 @@ const FormDiv = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding-top: 20px;
-  padding-bottom: 20px;
+  width: 50%;
+  margin: 40px auto 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const PriceNotifyForm = (props) => {
@@ -68,8 +81,6 @@ const PriceNotifyForm = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("new price", event.currentTarget.elements.desiredPrice.value);
-    
     axios
       .post("http://localhost:3001/api/storedesiredprice", {
         email: event.currentTarget.elements.email.value,
@@ -78,10 +89,8 @@ const PriceNotifyForm = (props) => {
         priceReplacementFlag: false,
       })
       .then((response) => {
-        console.log("response.data", response.data);
         const currentPrice = response.data;
         if (response.data) {
-          console.log("we hit the if")
           if (
             window.confirm(
               `You already have a desired price of $${currentPrice} saved, do you wish to replace it with $${currentDesiredPrice}?`
@@ -98,7 +107,6 @@ const PriceNotifyForm = (props) => {
             txt = "No, don't replace my price!";
           }
         } else {
-          console.log("else!!");
         }
       })
       .catch(function (error) {

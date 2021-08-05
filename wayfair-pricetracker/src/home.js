@@ -11,8 +11,7 @@ const Home = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("value", event.currentTarget.elements.inputURL.value);
-    setProductDetails(true)
+    setProductDetails(true);
     setLoading(true);
     axios
       .post("http://localhost:3001/api/scraping", {
@@ -27,16 +26,23 @@ const Home = () => {
       });
   }
 
-
   return (
     <Wrapper>
+      <Instructions id="instructions">
+        <h3>Find a product on Wayfair's website and paste the URL into the input below</h3>
+      </Instructions>
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"
-          placeholder="Enter URL here"
+          placeholder="Paste URL here"
           name="inputURL"
+          id="inputURL"
           pattern="https?://www.wayfair.c.+"
+          aria-describedby="instructions"
+          required
+          aria-required
         ></Input>
+        <Label for="inputURL">Input URL</Label>
         <Button type="submit">Click me</Button>
       </Form>
       {productDetails ? <ProductDetails loading={loading} data={data} /> : null}
@@ -44,22 +50,37 @@ const Home = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   padding: 10px;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
+`;
+
+const Instructions = styled.div`
+  font-size: 0.8rem;
+  padding: 0 10% 20px 10%;
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const Form = styled.form`
-height: 20px;
-font-family: 'Noto Sans JP', sans-serif;
+  height: 20px;
+  font-family: "Noto Sans JP", sans-serif;
 `;
 
 const Input = styled.input`
-padding: 5px;
+  padding: 10px;
+  font-family: "Noto Sans JP", sans-serif;
+`;
+
+const Label = styled.label`
+  display: none;
 `;
 
 const Button = styled.button`
-padding: 5px;
+  padding: 10px;
+  margin-left: 10px;
+  font-family: "Noto Sans JP", sans-serif;
 `;
 
 export default Home;

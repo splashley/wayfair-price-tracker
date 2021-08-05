@@ -4,22 +4,28 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <Wrapper>
-      <Title>hunterhunterhunter</Title>
-      <H2>a wayfair price tracker</H2>
+      <Title>HunterHunterHunter</Title>
+      <H2>A Wayfair Price Tracker</H2>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   padding: 10px;
 `;
 
 const Title = styled.h1`
 line-height: -100%;
 margin-bottom: 0;
+@media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const H2 = styled.h2`
+@media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
 `;
 
 export default Header;

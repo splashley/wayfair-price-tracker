@@ -4,7 +4,7 @@ import { FiLoader } from "react-icons/fi";
 
 const Spinner = () => {
   return (
-    <Wrapper>
+    <Wrapper aria-busy="true" aria-label="Loading - Do not refresh the page">
       <SpinnerDiv>
         <FiLoader />
       </SpinnerDiv>
@@ -26,6 +26,7 @@ const spin = keyframes`
 
 const SpinnerMessage = styled.p`
   color: black;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 1rem;
   @media (max-width: 768px) {
     font-size: 0.8rem;
@@ -49,7 +50,10 @@ const SpinnerDiv = styled.div`
 
 const Wrapper = styled.div`
   margin: 0;
-  padding: 0 20%;
+  padding: 20px 20%;
+  @media (max-width: 768px) {
+    padding: 20px 5%;
+  }
 `;
 
 export default Spinner;

@@ -17,7 +17,7 @@ async function handleDailyScraping(data) {
     await Promise.all([
       await page.mainFrame().waitForSelector(priceSelector),
     ]).catch(function (error) {
-      console.log(error);
+      console.log(error, inputURL);
     });
 
     let productPrice = await page.$eval(priceSelector, (element) => {

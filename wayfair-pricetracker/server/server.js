@@ -35,6 +35,7 @@ app.post("/api/scraping", async function (req, res) {
 app.post("/api/storedesiredprice", async function (req, res) {
   await storeDesiredPrice(req, res).then((data) => {
     res.status(200).json(data);
+    console.log("data", data);
   });
 });
 
@@ -43,8 +44,9 @@ app.get("/api/dailyscraping", async function (req, res) {
     async (data) => { 
       function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
       for (let item of data) {
+        console.log(item);
         await handleDailyScraping(item).then(res => { updateDailyPrices(res)})
-        await sleep(30000);
+        await sleep(60000);
       }
     }
   );

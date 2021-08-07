@@ -67,7 +67,9 @@ const FormDiv = styled.div`
 const Wrapper = styled.div`
   width: 50%;
   margin: 40px auto 0 auto;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   @media (max-width: 768px) {
     width: 80%;
   }
@@ -76,6 +78,7 @@ const Wrapper = styled.div`
 const PriceNotifyForm = (props) => {
   const [currentDesiredPrice, setCurrentDesiredPrice] = useState(0);
   const [email, setEmail] = useState(null);
+  const [buttonMessage, setButtonMessage] = useState("Save Your Price");
 
   let txt;
 
@@ -103,10 +106,18 @@ const PriceNotifyForm = (props) => {
               productId: props.data,
               priceReplacementFlag: true,
             });
+            setButtonMessage("Your Desired Price Has Been Saved");
+            setInterval(() => {
+              setButtonMessage("Save Your Price");
+            }, 5000);
           } else {
             txt = "No, don't replace my price!";
           }
         } else {
+          setButtonMessage("Your Desired Price Has Been Saved");
+          setInterval(() => {
+            setButtonMessage("Save Your Price");
+          }, 5000);
         }
       })
       .catch(function (error) {
@@ -155,7 +166,7 @@ const PriceNotifyForm = (props) => {
             onChange={handlePriceChange}
             required
           ></Input>
-          <SubmitButton type="submit">Save Your Price</SubmitButton>
+          <SubmitButton type="submit">{buttonMessage}</SubmitButton>
         </FormDiv>
       </Form>
     </Wrapper>

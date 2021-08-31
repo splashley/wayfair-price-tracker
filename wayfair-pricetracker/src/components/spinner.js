@@ -26,7 +26,6 @@ const spin = keyframes`
 
 const SpinnerMessage = styled.p`
   color: black;
-  font-family: 'Noto Sans JP', sans-serif;
   font-size: 1rem;
   @media (max-width: 768px) {
     font-size: 0.8rem;

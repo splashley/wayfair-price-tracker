@@ -43,7 +43,7 @@ const Home = () => {
           aria-required
         ></Input>
         <Label for="inputURL">Input URL</Label>
-        <Button type="submit">Click me</Button>
+        <Button type="submit">Search</Button>
       </Form>
       {productDetails ? <ProductDetails loading={loading} data={data} /> : null}
     </Wrapper>
@@ -52,7 +52,6 @@ const Home = () => {
 
 const Wrapper = styled.main`
   padding: 10px;
-  font-family: "Noto Sans JP", sans-serif;
 `;
 
 const Instructions = styled.div`
@@ -65,12 +64,10 @@ const Instructions = styled.div`
 
 const Form = styled.form`
   height: 20px;
-  font-family: "Noto Sans JP", sans-serif;
 `;
 
 const Input = styled.input`
   padding: 10px;
-  font-family: "Noto Sans JP", sans-serif;
 `;
 
 const Label = styled.label`
@@ -80,7 +77,11 @@ const Label = styled.label`
 const Button = styled.button`
   padding: 10px;
   margin-left: 10px;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  background: #6eaa4a;
+  border: 2px solid #6eaa4a;
+  color: white;
 `;
 
 export default Home;

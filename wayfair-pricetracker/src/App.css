@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&display=swap');
 
+html {
+  font-family: 'Roboto', sans-serif;
+}
 .App {
   text-align: center;
-  font-family: 'Noto Sans JP', sans-serif;
 }
 
 .App-logo {

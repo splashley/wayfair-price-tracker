@@ -13,7 +13,6 @@ const P = styled.p`
 
 const SubmitButton = styled.button`
   background-color: #6eaa4a;
-  font-family: "Noto Sans JP", sans-serif;
   color: white;
   border-radius: 2px;
   border: none;

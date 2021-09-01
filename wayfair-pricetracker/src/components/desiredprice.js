@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import axios from "axios";
 
 const P = styled.p`
@@ -13,6 +13,8 @@ const P = styled.p`
 
 const SubmitButton = styled.button`
   background-color: #6eaa4a;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   color: white;
   border-radius: 2px;
   border: none;
@@ -34,6 +36,8 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
+font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   padding: 5px 0;
   @media (max-width: 950px) {
     font-size: 1rem;

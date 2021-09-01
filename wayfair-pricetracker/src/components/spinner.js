@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components/macro";
 import { FiLoader } from "react-icons/fi";
 
 const Spinner = () => {
@@ -49,9 +49,9 @@ const SpinnerDiv = styled.div`
 
 const Wrapper = styled.div`
   margin: 0;
-  padding: 20px 20%;
+  padding: 50px 20%;
   @media (max-width: 768px) {
-    padding: 20px 5%;
+    padding: 50px 5% 20px 5%;
   }
 `;
 

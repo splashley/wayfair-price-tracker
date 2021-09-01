@@ -18,17 +18,19 @@ const ProductDetails = (props) => {
 };
 
 const Wrapper = styled.div`
-  padding: 30px 0;
+  padding: 50px 0;
 `;
 
 const ProductName = styled.h2`
 font-size: 1.5rem;
+font-weight: 500;
 @media (max-width: 768px) {
     font-size: 1rem;
   }
 `
 const ProductPrice = styled.h2`
 font-size: 1.5rem;
+font-weight: 500;
 @media (max-width: 768px) {
     font-size: 1rem;
   }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 import ProductDetails from "./productdetails";
 
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <Wrapper>
       <Instructions id="instructions">
-        <h3>Find a product on Wayfair's website and paste the URL into the input below</h3>
+        <Subtitle>Find a product on Wayfair's website and paste the URL into the input below</Subtitle>
       </Instructions>
       <Form onSubmit={handleSubmit}>
         <Input
@@ -52,6 +52,7 @@ const Home = () => {
 
 const Wrapper = styled.main`
   padding: 10px;
+  font-weight: 500;
 `;
 
 const Instructions = styled.div`
@@ -62,12 +63,19 @@ const Instructions = styled.div`
   }
 `;
 
+const Subtitle = styled.h3`
+  font-weight: 500;
+`;
+
+
 const Form = styled.form`
   height: 20px;
 `;
 
 const Input = styled.input`
   padding: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 `;
 
 const Label = styled.label`
@@ -77,7 +85,7 @@ const Label = styled.label`
 const Button = styled.button`
   padding: 10px;
   margin-left: 10px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   background: #6eaa4a;
   border: 2px solid #6eaa4a;

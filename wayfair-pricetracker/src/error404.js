@@ -5,6 +5,7 @@ const Error404 = () => {
   return (
     <Wrapper>
       <h2>Error404</h2>
+      <p>Not Found</p>
     </Wrapper>
   );
 };

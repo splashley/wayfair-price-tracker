@@ -67,7 +67,6 @@ const Subtitle = styled.h3`
   font-weight: 500;
 `;
 
-
 const Form = styled.form`
   height: 20px;
 `;
@@ -76,6 +75,10 @@ const Input = styled.input`
   padding: 10px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+  width: 400px;
+  @media (max-width: 768px) {
+    width: 175px;
+  }
 `;
 
 const Label = styled.label`

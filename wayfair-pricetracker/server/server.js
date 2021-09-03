@@ -35,7 +35,6 @@ app.post("/api/scraping", async function (req, res) {
 app.post("/api/storedesiredprice", async function (req, res) {
   await storeDesiredPrice(req, res).then((data) => {
     res.status(200).json(data);
-    console.log("data", data);
   });
 });
 

@@ -28,24 +28,24 @@ async function handleScraping(req, res) {
     console.log(error);
   });
 
-  let productName = await page.$eval(productNameSelector, (element) => {
+  const productName = await page.$eval(productNameSelector, (element) => {
     return element.innerText;
   });
 
-  let originalProductPrice = await page.$eval(priceSelector, (element) => {
+  const originalProductPrice = await page.$eval(priceSelector, (element) => {
     return element.innerHTML;
   });
 
-  let productImage = await page.$eval(imageSelector, (element) => {
+  const productImage = await page.$eval(imageSelector, (element) => {
     return element.getAttribute("src");
   });
 
-  let originalProductSkuNumber = await page.$eval(skuSelector, (element) => {
+  const originalProductSkuNumber = await page.$eval(skuSelector, (element) => {
     return element.innerText;
   });
 
-  let productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
-  let productPrice = originalProductPrice.replace("$", "");
+  const productSkuNumber = originalProductSkuNumber.replace("SKU: ", "");
+  const productPrice = originalProductPrice.replace("$", "");
 
   await browser.close();
   return {
